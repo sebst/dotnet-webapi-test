@@ -27,3 +27,8 @@ dotnet aspnet-codegenerator controller -name SessionController -async -api -m Se
 ```bash
 dotnet aspnet-codegenerator controller -name MemberController -async -api -m MemberItem -dc ConferenceContext -outDir Controllers
 ```
+
+
+
+- `Microsoft.EntityFrameworkCore.SQLite`
+- `Npgsql.EntityFrameworkCore.PostgreSQL`
