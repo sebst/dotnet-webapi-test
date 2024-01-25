@@ -11,47 +11,47 @@ namespace dotnet_webapi_test.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SessionController : ControllerBase
+    public class MemberController : ControllerBase
     {
         private readonly ConferenceContext _context;
 
-        public SessionController(ConferenceContext context)
+        public MemberController(ConferenceContext context)
         {
             _context = context;
         }
 
-        // GET: api/Session
+        // GET: api/Member
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SessionItem>>> GetSessionItems()
+        public async Task<ActionResult<IEnumerable<MemberItem>>> GetMemberItems()
         {
-            return await _context.SessionItems.ToListAsync();
+            return await _context.MemberItems.ToListAsync();
         }
 
-        // GET: api/Session/5
+        // GET: api/Member/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SessionItem>> GetSessionItem(long id)
+        public async Task<ActionResult<MemberItem>> GetMemberItem(long id)
         {
-            var sessionItem = await _context.SessionItems.FindAsync(id);
+            var memberItem = await _context.MemberItems.FindAsync(id);
 
-            if (sessionItem == null)
+            if (memberItem == null)
             {
                 return NotFound();
             }
 
-            return sessionItem;
+            return memberItem;
         }
 
-        // PUT: api/Session/5
+        // PUT: api/Member/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSessionItem(long id, SessionItem sessionItem)
+        public async Task<IActionResult> PutMemberItem(long id, MemberItem memberItem)
         {
-            if (id != sessionItem.Id)
+            if (id != memberItem.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(sessionItem).State = EntityState.Modified;
+            _context.Entry(memberItem).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace dotnet_webapi_test.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SessionItemExists(id))
+                if (!MemberItemExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace dotnet_webapi_test.Controllers
             return NoContent();
         }
 
-        // POST: api/Session
+        // POST: api/Member
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<SessionItem>> PostSessionItem(SessionItem sessionItem)
+        public async Task<ActionResult<MemberItem>> PostMemberItem(MemberItem memberItem)
         {
-            _context.SessionItems.Add(sessionItem);
+            _context.MemberItems.Add(memberItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSessionItem", new { id = sessionItem.Id }, sessionItem);
+            return CreatedAtAction("GetMemberItem", new { id = memberItem.Id }, memberItem);
         }
 
-        // DELETE: api/Session/5
+        // DELETE: api/Member/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSessionItem(long id)
+        public async Task<IActionResult> DeleteMemberItem(long id)
         {
-            var sessionItem = await _context.SessionItems.FindAsync(id);
-            if (sessionItem == null)
+            var memberItem = await _context.MemberItems.FindAsync(id);
+            if (memberItem == null)
             {
                 return NotFound();
             }
 
-            _context.SessionItems.Remove(sessionItem);
+            _context.MemberItems.Remove(memberItem);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool SessionItemExists(long id)
+        private bool MemberItemExists(long id)
         {
-            return _context.SessionItems.Any(e => e.Id == id);
+            return _context.MemberItems.Any(e => e.Id == id);
         }
     }
 }
