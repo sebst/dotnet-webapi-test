@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using dotnet_webapi_test.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<SessionContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SessionContext") ?? throw new InvalidOperationException("Connection string 'SessionContext' not found.")));
 
 // Add services to the container.
 
