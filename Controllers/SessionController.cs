@@ -13,25 +13,25 @@ namespace dotnet_webapi_test.Controllers
     [ApiController]
     public class SessionController : ControllerBase
     {
-        private readonly SessionContext _context;
+        private readonly ConferenceContext _context;
 
-        public SessionController(SessionContext context)
+        public SessionController(ConferenceContext context)
         {
             _context = context;
         }
 
         // GET: api/Session
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SessionItem>>> GetSessionItem()
+        public async Task<ActionResult<IEnumerable<SessionItem>>> GetSessionItems()
         {
-            return await _context.SessionItem.ToListAsync();
+            return await _context.SessionItems.ToListAsync();
         }
 
         // GET: api/Session/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SessionItem>> GetSessionItem(long id)
         {
-            var sessionItem = await _context.SessionItem.FindAsync(id);
+            var sessionItem = await _context.SessionItems.FindAsync(id);
 
             if (sessionItem == null)
             {
@@ -77,7 +77,7 @@ namespace dotnet_webapi_test.Controllers
         [HttpPost]
         public async Task<ActionResult<SessionItem>> PostSessionItem(SessionItem sessionItem)
         {
-            _context.SessionItem.Add(sessionItem);
+            _context.SessionItems.Add(sessionItem);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSessionItem", new { id = sessionItem.Id }, sessionItem);
@@ -87,13 +87,13 @@ namespace dotnet_webapi_test.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSessionItem(long id)
         {
-            var sessionItem = await _context.SessionItem.FindAsync(id);
+            var sessionItem = await _context.SessionItems.FindAsync(id);
             if (sessionItem == null)
             {
                 return NotFound();
             }
 
-            _context.SessionItem.Remove(sessionItem);
+            _context.SessionItems.Remove(sessionItem);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +101,7 @@ namespace dotnet_webapi_test.Controllers
 
         private bool SessionItemExists(long id)
         {
-            return _context.SessionItem.Any(e => e.Id == id);
+            return _context.SessionItems.Any(e => e.Id == id);
         }
     }
 }

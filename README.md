@@ -21,7 +21,7 @@ dotnet tool update -g dotnet-aspnet-codegenerator
 ```
 
 ```bash
-dotnet aspnet-codegenerator controller -name SessionController -async -api -m SessionItem -dc SessionContext -outDir Controllers
+dotnet aspnet-codegenerator controller -name SessionController -async -api -m SessionItem -dc ConferenceContext -outDir Controllers
 ```
 
 ```bash
